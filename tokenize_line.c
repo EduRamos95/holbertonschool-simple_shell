@@ -18,27 +18,43 @@ char *no_enter(char *line)
 }
 
 /**
- * get_number - gets number of words in an input string
+ * get_words - gets number of words in an input string
  * @line: input string
  *
- * Return: word count
+ * Return: word count for success, -1 failed
  */
-int get_number(char *line)
+int get_words(char *line)
 {
-	int i = 0, n = 1;
+        int count_words = 0;
+	char *line_copy = NULL;
+	char *token = NULL;
+	size_t n = 0;
 
-	while (line[i])
+	n = strlen(line);
+	line_copy = malloc(n + 1);
+	if (line_copy == NULL)
 	{
-		if (line[i] == ' ')
-			n++;
-		i++;
+		free(line);
+		return (-1);
 	}
-	return (n);
+	line_copy = strcpy(line_copy, line);
+	if (n == strlen(line_copy))
+	{
+		return (-1);
+	}
+	token = strtok(line_copy, " ");
+        while (token != NULL)
+	{
+        	count_words++;
+		token = strtok(NULL, " ");
+	}
+	free(line_copy);
+	return (count_words);
 }
 
 /**
  * tokenize_line - tokenizes an input string
- * @line: input string
+ * @line: input stringi
  *
  * Return: array of tokens obtained from variable line
  */
@@ -46,7 +62,7 @@ int get_number(char *line)
 char **tokenize_line(char *line)
 {
 	char *token;
-	size_t len = 0, i, n;
+	size_t len = 0, i = 0, n = 0;
 	ssize_t read = 0;
 	char **argv;
 
@@ -65,29 +81,41 @@ char **tokenize_line(char *line)
 		{
 			continue;
 		}
-
-		n = get_number(line);
-
-		argv = malloc((n + 1) * sizeof(char *));
-		token = strtok(line, " ");
-		i = 0;
-		if (n > 1)
+		if (line != NULL)
 		{
-			i = 0;
-			while (token != NULL)
+			n = get_words(line);
+			argv = malloc((n + 1) * sizeof(char *));
+			token = strtok(line, " ");
+
+			if (n > 1)
 			{
-				argv[i] = strdup(token);
-				token = strtok(NULL, " ");
-				i++;
+				i = 0;
+				while (token != NULL)
+				{
+					argv[i] = strdup(token);
+					if (argv[i] == NULL)
+					{
+						free(argv);
+						return (NULL);
+					}
+					token = strtok(NULL, " ");
+					i++;
+				}
+				argv[i] = NULL;
 			}
-			argv[i] = NULL;
+			else if (n == 1)
+			{	
+				argv[0] = strdup(token);
+				if (argv[0] == NULL)
+				{
+					free(argv);
+					return (NULL);
+				}
+				argv[1] = NULL;
+			}
+			return (argv);
 		}
-		else
-		{
-			argv[0] = strdup(token);
-			argv[1] = NULL;
-		}
-		return (argv);
+		return(NULL);
 	}
-	return(0);
+	return(NULL);
 }
