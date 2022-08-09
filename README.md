@@ -17,16 +17,16 @@ In other words, simple_shell is a program that reads commands provided, check if
 
 **Interactive mode**
 
-    test@ubuntu:~/simple_shell$ ./hsh
+    test@ubuntu:~/holbertonschool-simple_shell$ ./hsh
     ($) ls
     file1 file2 file3 file4
     ($)
 
 **Non-interactive mode**
 
-    test@ubuntu:~/simple_shell$ echo "ls" | ./hsh
+    test@ubuntu:~/holbertonschool-simple_shell$ echo "ls" | ./hsh
     file1 file2 file3 file4
-    test@ubuntu:~/simple_shell$
+    test@ubuntu:~/holbertonschool-simple_shell$
 
 ## File Structure
 
@@ -117,32 +117,29 @@ The simple_shell is designed to execute commands in a similar manner to sh, howe
 Run the executable in your terminal after compiling:
 ```
 ($) ls
-AUTHORS  README.md  _realloc.c  built-ins.c  built-ins_2.c  helper_functions.c
-hsh  	 main.c     main.h  	man_1_simple_shell  	    only_spaces.c
-
+README.md  3-add_node_end.c  4-free_list.c  getting_command.c  tokenize_line.c
+hsh  simple_shell.c  print_env.c  main.h  man_1_simple_shell  spaces.c 
 ($) pwd
 /home/fonsy20/simple_shell
 ```
 
 ```
 ($) ls -la
-total 84
-drwxr-xr-x  3 fonsy20 fonsy20  4096 Apr 11 23:53 .
-drwxr-xr-x 17 fonsy20 fonsy20  4096 Apr 11 18:34 ..
-drwxr-xr-x  8 fonsy20 fonsy20  4096 Apr 11 23:54 .git
--rw-r--r--  1 fonsy20 fonsy20   430 Apr  6 11:55 .gitignore
--rw-r--r--  1 fonsy20 fonsy20   233 Apr  6 11:55 AUTHORS
--rw-r--r--  1 fonsy20 fonsy20  4062 Apr 11 23:53 README.md
--rw-r--r--  1 fonsy20 fonsy20   798 Apr 10 22:31 _realloc.c
--rw-r--r--  1 fonsy20 fonsy20  2469 Apr 11 23:18 built-ins.c
--rw-r--r--  1 fonsy20 fonsy20  1131 Apr 11 23:18 built-ins_2.c
--rw-r--r--  1 fonsy20 fonsy20  1162 Apr 11 16:14 helper_functions.c
--rwxr-xr-x  1 fonsy20 fonsy20 22728 Apr 11 18:32 hsh
--rw-r--r--  1 fonsy20 fonsy20  5097 Apr 11 15:53 main.c
--rw-r--r--  1 fonsy20 fonsy20  1377 Apr 11 18:25 main.h
--rw-r--r--  1 fonsy20 fonsy20  1714 Apr 10 22:31 man_1_simple_shell
--rw-r--r--  1 fonsy20 fonsy20   449 Apr 10 22:31 only_spaces.c
-
+total 80
+drwxr-xr-x 1 root root  4096 Aug  8 23:51 .
+drwxr-xr-x 1 root root  4096 Aug  3 09:30 ..
+drwxr-xr-x 1 root root  4096 Aug  8 23:51 .git
+-rw-r--r-- 1 root root    15 Aug  8 23:50 .gitignore
+-rw-r--r-- 1 root root   643 Aug  8 23:40 3-add_node_end.c
+-rw-r--r-- 1 root root   269 Aug  8 23:37 4-free_list.c
+-rw-r--r-- 1 root root  4868 Aug  8 23:37 README.md
+-rw-r--r-- 1 root root  1356 Aug  8 23:37 getting_command.c
+-rwxr-xr-x 1 root root 18272 Aug  8 23:48 hsh
+-rw-r--r-- 1 root root   678 Aug  8 23:46 main.h
+-rw-r--r-- 1 root root   140 Aug  8 23:43 print_env.c
+-rw-r--r-- 1 root root  1114 Aug  8 23:37 simple_shell.c
+-rw-r--r-- 1 root root   847 Aug  8 23:37 spaces.c
+-rw-r--r-- 1 root root  1146 Aug  8 23:42 tokenize_line.c
 ($) 
 ```
 
