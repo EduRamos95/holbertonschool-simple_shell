@@ -1,11 +1,29 @@
 #include "main.h"
+
 /**
- * get_num_words - gets number of words in an input string
+ * no_enter - deletes the 'enter' of the last character
+ * @line: input string
+ *
+ * Return: char pointer
+ */
+char *no_enter(char *line)
+{
+        int i = 0;
+
+	i = strlen(line);
+
+	if (line[i - 1] == '\n')
+		line [i - 1] = '\0';
+        return (line);
+}
+
+/**
+ * get_number - gets number of words in an input string
  * @line: input string
  *
  * Return: word count
  */
-int get_num_words(char *line)
+int get_number(char *line)
 {
 	int i = 0, n = 1;
 
@@ -41,12 +59,14 @@ char **tokenize_line(char *line)
 		{
 			break;
 		}
+		line = no_enter(line);
+
 		if (validate_spaces(line))
 		{
 			continue;
 		}
 
-		n = get_num_words(line);
+		n = get_number(line);
 
 		argv = malloc((n + 1) * sizeof(char *));
 		token = strtok(line, " ");
@@ -56,23 +76,18 @@ char **tokenize_line(char *line)
 			i = 0;
 			while (token != NULL)
 			{
-				argv[i] = token;
+				argv[i] = strdup(token);
 				token = strtok(NULL, " ");
 				i++;
 			}
-			argv[i - 1][strlen(argv[i - 1]) - 1] = '\0';
 			argv[i] = NULL;
 		}
 		else
 		{
-			argv[0] = token;
-			argv[0][strlen(argv[0]) - 1] = '\0';
+			argv[0] = strdup(token);
 			argv[1] = NULL;
 		}
 		return (argv);
-		free(argv);
-		free(token);
-		free(line);
 	}
 	return(0);
 }

@@ -64,10 +64,10 @@ char *get_full_command(char *command)
 			command_found = 1;
 			break;
 		}
+		free(check_com);
 		ptr = ptr->next;
 	}
 	if (command_found)
 		return (check_com);
 	return (NULL);
-	free(check_com);
 }

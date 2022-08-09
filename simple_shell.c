@@ -1,6 +1,32 @@
 #include "main.h"
 
 /**
+ * free_arg - Free element by element
+ *
+ * @arg: input pointer
+ *
+ * Return: Void.
+ */
+
+void free_arg(char **arg)
+{
+        size_t i = 0;
+
+        if (arg == NULL)
+        {
+                return;
+        }
+
+        while (arg[i])
+        {
+                free(arg[i]);
+                i++;
+        }
+	free(arg);
+}
+
+
+/**
  * c_handler - Handle the Ctrl + C on the simple shell.
  *
  * @x: Unused int.
@@ -34,7 +60,7 @@ int main(__attribute__((unused)) int argc, char *argv[])
 		
 		if (!strncmp(args[0], "exit", 4))
 			return (0);
-		if (args[0][0] != '/' || args[0][0] == '.')
+		if (args[0][0] != '/' || args[0][0] != '.')
 		{
 			args[0] = get_full_command(args[0]);
 			if (!args[0])
@@ -61,7 +87,7 @@ int main(__attribute__((unused)) int argc, char *argv[])
 		}
 		else
 			wait(&status);
-		free(args);
+		free_arg(args);
 		free(line);
 	}
 	return (0);
