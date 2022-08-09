@@ -1,4 +1,11 @@
 #include <stdio.h>
+
+/**
+ * print_env - Prints environment:
+ *
+ * Return: Void.
+ */
+
 void print_env()
 {
 	extern char **environ;
