@@ -64,6 +64,7 @@ char *get_full_command(char *command)
 		ptr = ptr->next;
 	}
 	free(clone_env);
+	free_list(paths);
 	if (command_found)
 		return (check_com);
 	return (NULL);
