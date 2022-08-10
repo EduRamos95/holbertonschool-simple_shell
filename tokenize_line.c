@@ -38,7 +38,7 @@ int get_words(char *line)
 		return (-1);
 	}
 	line_copy = strcpy(line_copy, line);
-	if (n == strlen(line_copy))
+	if (n != strlen(line_copy))
 	{
 		return (-1);
 	}
@@ -73,49 +73,52 @@ char **tokenize_line(char *line)
 		
 		if (read == -1)
 		{
+			free(line);
 			break;
 		}
-		line = no_enter(line);
 
+		/*if (!strcmp(line, "\n"))*/
+			/*continue;*/
 		if (validate_spaces(line))
-		{
 			continue;
-		}
-		if (line != NULL)
-		{
-			n = get_words(line);
-			argv = malloc((n + 1) * sizeof(char *));
-			token = strtok(line, " ");
 
-			if (n > 1)
+		line = no_enter(line);
+		/*if (line == NULL)*/
+			/*continue;*/
+
+		n = get_words(line);
+		argv = malloc((n + 1) * sizeof(char *));
+		token = strtok(line, " ");
+
+		if (n > 1)
+		{
+			i = 0;
+			while (token != NULL)
 			{
-				i = 0;
-				while (token != NULL)
-				{
-					argv[i] = strdup(token);
-					if (argv[i] == NULL)
-					{
-						free(argv);
-						return (NULL);
-					}
-					token = strtok(NULL, " ");
-					i++;
-				}
-				argv[i] = NULL;
-			}
-			else if (n == 1)
-			{	
-				argv[0] = strdup(token);
-				if (argv[0] == NULL)
+				argv[i] = strdup(token);
+				if (argv[i] == NULL)
 				{
 					free(argv);
 					return (NULL);
 				}
-				argv[1] = NULL;
+				token = strtok(NULL, " ");
+				i++;
 			}
-			return (argv);
+			argv[i] = NULL;
 		}
-		return(NULL);
+		else if (n == 1)
+		{	
+			argv[0] = strdup(token);
+			if (argv[0] == NULL)
+			{
+				free(argv);
+				return (NULL);
+			}
+			argv[1] = NULL;
+		}
+		/*else*/
+		free(line);
+		return (argv);		
 	}
 	return(NULL);
 }

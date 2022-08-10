@@ -4,25 +4,20 @@
  *
  * Return: string with value of PATH
  */
-char *PATH_to_dirs()
+char *PATH_to_dirs(char **env)
 {
-	char *this_name, *line;
-	int i = 0;
+	char *path = "PATH=";
+	unsigned int i, j;
 
-	while (environ[i])
+	for(i = 0; env[i] != NULL; i++)
 	{
-		this_name = malloc(5);
-		strncpy(this_name, environ[i], 4);
-		if (!strcmp(this_name, "PATH"))
-		{
-			line = malloc(strlen(environ[i]) + 1 - 5);
-			strcpy(line, environ[i] + 5);
+		for (j = 0; j < 5; j++)
+			if (path[j] != env[i][j])
+				break;
+		if(j == 5)
 			break;
-		}
-		i++;
 	}
-	free(this_name);
-	return (line);
+	return (env[i]);
 }
 
 /**
@@ -34,23 +29,24 @@ char *PATH_to_dirs()
  */
 char *get_full_command(char *command)
 {
-	char *line, *token, *check_com;
+	char *line, *token, *check_com, *clone_env;
 	size_t n, command_found = 0;
 	list_t *paths, *ptr;
 	struct stat st;
 
-	line = PATH_to_dirs();
-
+	line = PATH_to_dirs(environ);
+	clone_env = malloc (strlen(line) + 1 - 5);
+	strcpy(clone_env, line + 5);
 	paths = NULL;
-	token = strtok(line, ":");
+	token = strtok(clone_env, ":");
 	while (token != NULL)
 	{
 		add_node_end(&paths, token);
 		token = strtok(NULL, ":");
 	}
-	free(token);
-	ptr = malloc(sizeof(list_t));
-	free(line);
+	/*free(token);*/
+	/*ptr = malloc(sizeof(list_t));*/
+	/*free(line);*/
 	ptr = paths;
 	while (ptr)
 	{
@@ -67,6 +63,7 @@ char *get_full_command(char *command)
 		free(check_com);
 		ptr = ptr->next;
 	}
+	free(clone_env);
 	if (command_found)
 		return (check_com);
 	return (NULL);
