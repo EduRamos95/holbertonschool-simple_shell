@@ -6,7 +6,7 @@
  * Return: Void.
  */
 
-void print_env()
+void print_env(void)
 {
 	extern char **environ;
 	int i = 0;

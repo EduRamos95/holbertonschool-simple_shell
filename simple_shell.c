@@ -10,18 +10,18 @@
 
 void free_arg(char **arg)
 {
-        size_t i = 0;
+	size_t i = 0;
 
-        if (arg == NULL)
-        {
-                return;
-        }
+	if (arg == NULL)
+	{
+		return;
+	}
 
-        while (arg[i])
-        {
-                free(arg[i]);
-                i++;
-        }
+	while (arg[i])
+	{
+		free(arg[i]);
+		i++;
+	}
 	free(arg);
 }
 
@@ -52,12 +52,10 @@ int main(__attribute__((unused)) int argc, char *argv[])
 	char *line = NULL, **args;
 	int success, status;
 	pid_t parent;
-	
 	signal(SIGINT, c_handler);
 	while (1)
 	{
-		args = tokenize_line(line);
-		
+		args = tokenize_line(line);	
 		if (!strncmp(args[0], "exit", 4))
 			return (0);
 		if (args[0][0] != '/' || args[0][0] != '.')
