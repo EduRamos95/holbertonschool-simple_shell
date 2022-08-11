@@ -31,8 +31,6 @@ int validate_spaces(char *input)
  *
  * @bytes_read: Lenght of the command.
  *
- * @while_st: Pointer to the while status.
- *
  * Return: 0 if all good, 1 otherwise.
  */
 

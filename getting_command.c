@@ -9,12 +9,12 @@ char *PATH_to_dirs(char **env)
 	char *path = "PATH=";
 	unsigned int i, j;
 
-	for(i = 0; env[i] != NULL; i++)
+	for (i = 0; env[i] != NULL; i++)
 	{
 		for (j = 0; j < 5; j++)
 			if (path[j] != env[i][j])
 				break;
-		if(j == 5)
+		if (j == 5)
 			break;
 	}
 	return (env[i]);
@@ -35,7 +35,7 @@ char *get_full_command(char *command)
 	struct stat st;
 
 	line = PATH_to_dirs(environ);
-	clone_env = malloc (strlen(line) + 1 - 5);
+	clone_env = malloc(strlen(line) + 1 - 5);
 	strcpy(clone_env, line + 5);
 	paths = NULL;
 	token = strtok(clone_env, ":");
