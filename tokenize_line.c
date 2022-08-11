@@ -34,13 +34,13 @@ int get_words(char *line)
 	line_copy = malloc(n + 1);
 	if (line_copy == NULL)
 	{
-		free(line);
+		free(line_copy);
 		return (-1);
 	}
 	line_copy = strcpy(line_copy, line);
 	if (n != strlen(line_copy))
 	{
-		return (-1);
+		return (0);
 	}
 	token = strtok(line_copy, " ");
         while (token != NULL)
@@ -116,7 +116,11 @@ char **tokenize_line(char *line)
 			}
 			argv[1] = NULL;
 		}
-		/*else*/
+		else
+		{
+			argv[0] = NULL;
+			argv[1] = NULL;
+		}
 		free(line);
 		return (argv);		
 	}
