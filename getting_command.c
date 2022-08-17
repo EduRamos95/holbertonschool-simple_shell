@@ -51,6 +51,16 @@ char *get_full_command(char *command)
 	while (ptr)
 	{
 		n = strlen(ptr->str);
+		if (command[0] == '/')
+		{
+			check_com = malloc(n + 1);
+			check_com = command;
+			if (stat(check_com, &st) == 0)
+			{
+				command_found = 1;
+				break;
+			}
+		}
 		check_com = malloc(n + strlen(command) + 2);
 		strncpy(check_com, ptr->str, n);
 		check_com[n] = '/';

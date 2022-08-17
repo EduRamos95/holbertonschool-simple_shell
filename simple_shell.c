@@ -49,7 +49,7 @@ void c_handler(int x)
  */
 int main(__attribute__((unused)) int argc, char *argv[])
 {
-	char *line = NULL, **args, *old_args = NULL;
+	char *line = NULL, **args; /* *old_args = NULL;*/
 	int success, status;
 	pid_t parent;
 	signal(SIGINT, c_handler);
@@ -60,7 +60,7 @@ int main(__attribute__((unused)) int argc, char *argv[])
 			return (0);
 		if (args[0][0] != '/' || args[0][0] != '.')
 		{
-			old_args = get_full_command(args[0]);
+			args[0] = get_full_command(args[0]);
 			if (!args[0])
 			{
 				printf("%s: No such file or directory\n", argv[0]);
@@ -75,7 +75,7 @@ int main(__attribute__((unused)) int argc, char *argv[])
 				print_env();
 				return (0);
 			}
-			success = execve(old_args, args, environ);
+			success = execve(args[0], args, environ);
 			if (success)
 			{
 				printf("%s: No such file or directory\n", argv[0]);
@@ -85,9 +85,9 @@ int main(__attribute__((unused)) int argc, char *argv[])
 		}
 		else
 			wait(&status);
-		free(old_args);
+		/*free(args[0]);*/
 		free_arg(args);
-		free(line);
+		/*free(line);*/
 	}
 	return (0);
 }
